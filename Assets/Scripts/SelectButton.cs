@@ -16,6 +16,6 @@ public class SelectButton : MonoBehaviour {
 	}
 	public void SelectedPet()
 	{
-		Controller.ChangedModel(namePet);
+		
 	}
 }
