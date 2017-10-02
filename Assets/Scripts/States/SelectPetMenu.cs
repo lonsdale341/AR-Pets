@@ -30,31 +30,43 @@ namespace States
             if (source == menuComponent.Pet_1_Button.gameObject)
             {
                 Debug.Log(source.name);
-                CommonData.nameMyPet = "cat_1";
+                //CommonData.nameMyPet = "cat_1";
+                CommonData.currentUser.data.nameMyPet = "cat_1";
+                CommonData.currentUser.PushData();
+                CommonData.modeState = "simple";
                 manager.PushState(new AR());
             }
             else if (source == menuComponent.Pet_2_Button.gameObject)
             {
                 Debug.Log(source.name);
-                CommonData.nameMyPet = "cat_2";
+               // CommonData.nameMyPet = "cat_2";
+                CommonData.currentUser.data.nameMyPet = "cat_2";
+                CommonData.currentUser.PushData();
+                CommonData.modeState = "simple";
                 manager.PushState(new AR());
             }
             else if (source == menuComponent.Pet_3_Button.gameObject)
             {
                 Debug.Log(source.name);
-                CommonData.nameMyPet = "puppy_1";
+                //CommonData.nameMyPet = "puppy_1";
+                CommonData.currentUser.data.nameMyPet = "puppy_1";
+                CommonData.currentUser.PushData();
+                CommonData.modeState = "simple";
                 manager.PushState(new AR());
             }
             else if (source == menuComponent.Pet_4_Button.gameObject)
             {
                 Debug.Log(source.name);
-                CommonData.nameMyPet = "puppy_2";
+                //CommonData.nameMyPet = "puppy_2";
+                CommonData.currentUser.data.nameMyPet = "puppy_2";
+                CommonData.currentUser.PushData();
+                CommonData.modeState = "simple";
                 manager.PushState(new AR());
             }
             else if (source == menuComponent.Cancel_Button.gameObject)
             {
                 Debug.Log(source.name);
-                 manager.SwapState(new SimpleMenu());
+                 manager.SwapState(new SelectModeState());
             }
 
         }

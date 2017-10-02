@@ -10,6 +10,16 @@ namespace States
         public override void Initialize()
         {
             menuComponent = SpawnUI<Menus.SelectModeStateGUI>(StringConstants.PrefabsSelectModeStateMenu);
+            if (string.IsNullOrEmpty(CommonData.currentUser.data.nameMyPet))
+            {
+                menuComponent.PlayButton.gameObject.SetActive(false);
+               // menuComponent.FacebookButton.gameObject.SetActive(false);
+            }
+            else
+            {
+                menuComponent.PlayButton.gameObject.SetActive(true);
+                //menuComponent.FacebookButton.gameObject.SetActive(true);
+            }
         }
         public override void Suspend()
         {
@@ -26,25 +36,29 @@ namespace States
         public override void HandleUIEvent(GameObject source, object eventData)
         {
             Menus.SelectModeStateGUI buttonComponent = source.GetComponent<Menus.SelectModeStateGUI>();
-            if (source == menuComponent.SimpleButton.gameObject)
+            if (source == menuComponent.ChooseButton.gameObject)
+            {
+                Debug.Log(source.name);
+                manager.SwapState(new SelectPetMenu());
+            }
+            else if (source == menuComponent.PlayButton.gameObject)
             {
                 Debug.Log(source.name);
                 CommonData.modeState = "simple";
-                manager.SwapState(new SimpleMenu());
+                manager.PushState(new AR());
+                
             }
             else if (source == menuComponent.FacebookButton.gameObject)
             {
                 Debug.Log(source.name);
                 CommonData.modeState = "facebook";
-                if (string.IsNullOrEmpty(CommonData.nameMyPet))
-                {
-                    manager.SwapState(new WarningChosePet()); 
-                }
-                else
-                {
-                    manager.PushState(new AR());
-                }
-                // manager.SwapState(new MainMenu());
+                manager.PushState(new SelectFriendsMenu());
+                
+            }
+            else if (source == menuComponent.AccountButton.gameObject)
+            {
+                Debug.Log(source.name);
+                manager.PushState(new ManageAccount());
             }
             
 

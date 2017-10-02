@@ -97,8 +97,8 @@ public class PoseController : MonoBehaviour
     {
         if (mode=="simple")
         {
-            GameObject model = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.nameMyPet]);
-            
+           // GameObject model = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.nameMyPet]);
+            GameObject model = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.currentUser.data.nameMyPet]);
             model.transform.SetParent(Center.transform, false);
             model.transform.localPosition = new Vector3(0,0,0);
             model.GetComponentInChildren<LabelController>().Init(Target,"My pet"); 
@@ -106,32 +106,37 @@ public class PoseController : MonoBehaviour
         }
         if (mode=="facebook")
         {
-            GameObject model = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.nameMyPet]);
-            
+            //GameObject model = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.nameMyPet]);
+            GameObject model = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.currentUser.data.nameMyPet]);
             model.transform.SetParent(Left.transform, false);
             model.transform.localPosition = new Vector3(0, 0, 0);
             model.GetComponentInChildren<LabelController>().Init(Target, "My pet"); 
             ListModels.Add(model);
-            string name = CommonData.nameMyPet;
             RuntimeAnimatorController animController = catAnimatioController;
-            while (name==CommonData.nameMyPet)
+            if (CommonData.currentUser.data.nameFriendPet.StartsWith("puppy"))
             {
-                name = "";
-                if (Random.RandomRange(1,3)==1)
-                {
-                    name = "cat_";
-                    animController = catAnimatioController;
-                }
-                else
-                {
-                    name = "puppy_";
-                    animController = puppyAnimatioController;
-                }
-                name += Random.Range(1, 3).ToString();
+                animController = puppyAnimatioController;
             }
+          // string name = CommonData.nameMyPet;
+          // 
+          // while (name==CommonData.nameMyPet)
+          // {
+          //     name = "";
+          //     if (Random.RandomRange(1,3)==1)
+          //     {
+          //         name = "cat_";
+          //         animController = catAnimatioController;
+          //     }
+          //     else
+          //     {
+          //         name = "puppy_";
+          //         animController = puppyAnimatioController;
+          //     }
+          //     name += Random.Range(1, 3).ToString();
+          // }
 
-            GameObject model_2 = GameObject.Instantiate(CommonData.prefabs.menuLookup[name]);
-           
+          //  GameObject model_2 = GameObject.Instantiate(CommonData.prefabs.menuLookup[name]);
+            GameObject model_2 = GameObject.Instantiate(CommonData.prefabs.menuLookup[CommonData.currentUser.data.nameFriendPet]);
             model_2.transform.SetParent(Right.transform, false);
             model_2.transform.localPosition = new Vector3(0,0, 0);
             model_2.GetComponentInChildren<LabelController>().Init(Target, "Friend"); 
@@ -254,7 +259,22 @@ public class PoseController : MonoBehaviour
 
 
     #region PUBLIC_METHODS
+    public void ChangeAnim()
+    {
+       ListModels[0].GetComponent<Animator>().SetBool("Eat",true);
 
+       
+
+        StartCoroutine("DoSomething");
+
+        Debug.Log("check");
+    }
+    IEnumerator DoSomething()
+    {
+        yield return new WaitForSeconds(0.1f);
+        ListModels[0].GetComponent<Animator>().SetBool("Eat", false);
+        yield return null;
+    }
     public void ResetState()
     {
         mTrackingMode = TrackingMode.CONSTRAINED_TO_CAMERA;

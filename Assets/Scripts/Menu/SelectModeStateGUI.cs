@@ -7,8 +7,10 @@ namespace Menus
     public class SelectModeStateGUI : BaseMenu
     {
 
-        public GUIButton SimpleButton;
+        public GUIButton ChooseButton;
+        public GUIButton PlayButton;
         public GUIButton FacebookButton;
+        public GUIButton AccountButton;
     }
 
 

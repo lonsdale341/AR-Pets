@@ -12,6 +12,8 @@ namespace Menus
         public GUIButton MsgGetClosedButton;
         public GUIButton ResetButton;
         public GUIButton CancelButton;
+        public GUIButton FacebookButton;
+        public GUIButton EatButton;
     }
 
 

@@ -15,6 +15,17 @@ namespace States
             CommonData.poseController.msgTryAgain = menuComponent.MsgTapTryAgainButton.gameObject;
             CommonData.poseController.msgGetCloser = menuComponent.MsgGetClosedButton.gameObject;
             CommonData.poseController.InitActive();
+            if (CommonData.modeState == "simple")
+            {
+                menuComponent.EatButton.gameObject.SetActive(true);
+                menuComponent.FacebookButton.gameObject.SetActive(true);
+            }
+            if (CommonData.modeState == "facebook")
+            {
+                menuComponent.EatButton.gameObject.SetActive(false);
+                menuComponent.FacebookButton.gameObject.SetActive(false);
+            }
+            
         }
         public override void Suspend()
         {
@@ -37,10 +48,21 @@ namespace States
                 Debug.Log(source.name);
                 CommonData.poseController.ResetState();
             }
+            else if (source == menuComponent.FacebookButton.gameObject)
+            {
+                Debug.Log(source.name);
+                CommonData.modeState = "facebook";
+                manager.SwapState(new SelectFriendsMenu());
+            }
             else if (source == menuComponent.CancelButton.gameObject)
             {
                 Debug.Log(source.name);
                 manager.PopState();
+            }
+            else if (source == menuComponent.EatButton.gameObject)
+            {
+                Debug.Log(source.name);
+                CommonData.poseController.ChangeAnim();
             }
             
 
