@@ -75,16 +75,18 @@ public class MainManager : MonoBehaviour {
 
 
 
-
-     // UserData temp = new UserData();
-     // temp.nameUser = StringConstants.DefaultUserName;
-     // temp.id = StringConstants.DefaultUserId;
-     // temp.nameMyPet = "";
-     //
-     // CommonData.currentUser = new DBStruct<UserData>(
-     //   CommonData.DBUserTablePath + StringConstants.DefaultUserId, CommonData.app);
-     // CommonData.currentUser.Initialize(temp);
-     // stateManager.SwapState(new States.SelectModeState());
+#if UNITY_EDITOR
+      UserData temp = new UserData();
+      temp.nameUser = StringConstants.DefaultUserName;
+      temp.id = StringConstants.DefaultUserId;
+      temp.nameMyPet = "";
+     
+      CommonData.currentUser = new DBStruct<UserData>(
+        CommonData.DBUserTablePath + StringConstants.DefaultUserId, CommonData.app);
+      CommonData.currentUser.Initialize(temp);
+      stateManager.SwapState(new States.SelectModeState());
+#else
         stateManager.PushState(new States.Startup());
+#endif
     }
 }
